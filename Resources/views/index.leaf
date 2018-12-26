@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+            <title>#(title)</title>
+            <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                                  
+                                  })
+                </script>
+            <script>
+                $(function() {
+                  $('.fb').click(function() {
+                                 window.location.href = '/test'
+                                 })
+                  })
+                </script>
+            </head>
+    <body>
+        <img src = "/image/logo.png" class="mx-auto d-block" />
+        <h1>Hello Vapor!!</h1>
+        <button class="fb">Go to OcbiOSJS Test Page</button>
+    </body>
+</html>
