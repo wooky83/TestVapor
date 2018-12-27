@@ -1,10 +1,17 @@
 import Vapor
+import Crypto
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     // Basic "Hello, world!" example
     router.get("hello") { req in
         return "Hello, world!"
+    }
+    
+    router.get("hash", String.parameter) { req -> String in
+        let string = try req.parameters.next(String.self)
+        let hasher = try BCrypt.hash(string)
+        return hasher
     }
 
     // Example of configuring a controller
