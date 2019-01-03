@@ -9,7 +9,7 @@ import Foundation
 import FluentMySQL
 import Vapor
 
-final class Favorite: Codable {
+final class Favorite: MySQLModel {
     var id: Int?
     var userId: User.ID
     var car: String
@@ -22,6 +22,6 @@ final class Favorite: Codable {
     }
 }
 
-extension Favorite: MySQLModel {}
 extension Favorite: Migration {}
 extension Favorite: Content {}
+extension Favorite: Parameter {}

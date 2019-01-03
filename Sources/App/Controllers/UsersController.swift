@@ -7,6 +7,7 @@
 
 import Foundation
 import Vapor
+import Authentication
 
 struct UsersController: RouteCollection {
     func boot(router: Router) throws {
@@ -18,6 +19,8 @@ struct UsersController: RouteCollection {
     
     func createHandler(_ req: Request) throws -> Future<User> {
         return try req.content.decode(User.self).flatMap(to: User.self) { user in
+            let hasher = try req.make(BCryptDigest.self)
+            user.password = try hasher.hash(user.password)
             return user.save(on: req)
         }
     }

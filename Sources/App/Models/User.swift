@@ -8,17 +8,16 @@
 import Foundation
 import FluentMySQL
 import Vapor
+import Authentication
 
 final class User: Codable {
     var id: UUID?
     var name: String
-    var birthday: Int
-    var rate: Int
+    var password: String
     
-    init(name: String, birthday: Int, rate: Int) {
+    init(name: String, password: String) {
         self.name = name
-        self.birthday = birthday
-        self.rate = rate
+        self.password = password
     }
 }
 
@@ -31,3 +30,13 @@ extension User {
         return children(\.userId)
     }
 }
+
+extension User: BasicAuthenticatable {
+    static let usernameKey: UsernameKey = \User.name
+    static let passwordKey: PasswordKey = \User.password
+}
+
+extension User: PasswordAuthenticatable {}
+extension User: SessionAuthenticatable {}
+
+
