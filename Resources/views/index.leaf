@@ -17,7 +17,7 @@
                                  })
                   })
                 </script>
-            </head>
+    </head>
     <body>
         <img src = "/image/logo.png" class="mx-auto d-block" />
         <h1>Hello Vapor!!</h1>

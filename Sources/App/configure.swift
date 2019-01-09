@@ -8,14 +8,17 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     /// Register providers first
     try services.register(FluentMySQLProvider())
     try services.register(AuthenticationProvider())
+    try services.register(LeafProvider())
 
     /// Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
     middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
-    services.register(middlewares)
+    //Session MiddleWare
+    config.prefer(MemoryKeyedCache.self, for: KeyedCache.self)
+    middlewares.use(SessionsMiddleware.self)
     
-    try services.register(LeafProvider())
+    services.register(middlewares)
 
     /// Register the configured SQLite database to the database config.
 //    var databases = DatabasesConfig()
@@ -37,5 +40,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     try routes(router)
     services.register(router, as: Router.self)
 
-
+    services.register { _ in
+        NIOServerConfig.default(hostname: "127.0.0.1", port: 8080)
+    }
 }
